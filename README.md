@@ -35,3 +35,9 @@ Install the tools mentioned above in order to run the scripts.
 This scripts uses the alive hosts identified via the get_domain script to get the header from the web server for furthur enumeration.
 
 The script sends the GET request to each of the host in the **alive.txt** file using curl and storing the result in folder **headers** with each header stored in diffrent file nwith name of the host.
+
+## getports.sh
+ 
+This scripts uses the subdomains identified via the get_domain script to scan for any open port on those hosts and scan for services runnning on those ports.
+
+The script scans each host using nmap and store the output in nmapscan folder with each result stored in diffrent file with the name of domain.
