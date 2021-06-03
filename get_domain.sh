@@ -4,7 +4,9 @@ crtsh () {
 	curl -s https://crt.sh/\?q\=\%25.$1\&output\=json | jq -r '.[].name_value' | sed 's/\*\.//g' | sort -u 
 }
 
-
+certspotter(){
+curl -s https://certspotter.com/api/v0/certs\?domain\=$1 | jq '.[].dns_names[]' | sed 's/\"//g' | sed 's/\*\.//g' | sort -u | grep $1
+}
 
 if [ -z $1 ]; then
 echo "Usage: getdomain <domain_name>"
@@ -20,6 +22,8 @@ echo "Using sublist3r......."
 sublist3r -d $1 -o sublister.$1.txt  > /dev/null 2>&1 ;
 echo "Using crtsh..............."
 crtsh $1 >>sublister.$1.txt;
+echo "Using certspotter..............."
+certspotter $1 >>sublister.$1.txt;
 echo "Using assetfinder..............."
 assetfinder --subs-only $1 >>sublister.$1.txt;
 echo "Compiling Results................"
